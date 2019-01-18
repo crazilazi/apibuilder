@@ -2,6 +2,11 @@ import cmd from "node-cmd";
 
 export class NodeCommand {
     static StartService(wheretostart: string) {
-        cmd.run(`node ${wheretostart}`);
+        try {
+            cmd.run(`node ${wheretostart}`);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 }
