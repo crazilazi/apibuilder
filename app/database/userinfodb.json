@@ -1,104 +1,35 @@
 [
     {
         "id": "a1b2c3",
-        "methodName": "getAllEmployee",
-        "methodParams": [
-            "id"
-        ],
-        "httpMethod": "get",
-        "data": [
-            {
-                "name": "Rajeev"
-            },
-            {
-                "name": "Sachin"
-            },
-            {
-                "name": "Nandish"
-            }
-        ],
-        "port": 5555,
-        "nodePid": 12388,
-        "nodePpid": 11400
-    },
-    {
-        "id": "a1b2c3",
-        "methodName": "getAllDept",
-        "methodParams": [
-            "id"
-        ],
-        "httpMethod": "get",
-        "data": [
-            {
-                "name": "Dev"
-            },
-            {
-                "name": "IT"
-            },
-            {
-                "name": "Support"
-            }
-        ],
-        "port": 5555,
-        "nodePid": 6424,
-        "nodePpid": 12048
-    },
-    {
-        "id": "a1b2c3",
-        "methodName": "getAllDept",
+        "methodName": "getallemp",
         "methodParams": [],
         "httpMethod": "get",
-        "data": [
-            {
-                "name": "Dev"
-            },
-            {
-                "name": "IT"
-            },
-            {
-                "name": "Support"
-            },
-            {
-                "name": "Dev"
-            },
-            {
-                "name": "IT"
-            },
-            {
-                "name": "Support"
-            }
-        ],
+        "data": "select top 20  employee_id, first_name, last_name, email, salary from dbo.employees",
         "port": 5555,
-        "nodePid": 6424,
-        "nodePpid": 12048
+        "cmd": "node  C://working//allapigoeshere//a1b2c3//a1b2c35555.js",
+        "pid": 7636,
+        "ppid": 10800
     },
     {
         "id": "a1b2c3",
-        "methodName": "getAlld",
+        "methodName": "getalldept",
         "methodParams": [],
         "httpMethod": "get",
-        "data": [
-            {
-                "name": "Dev"
-            },
-            {
-                "name": "IT"
-            },
-            {
-                "name": "Support"
-            },
-            {
-                "name": "Dev"
-            },
-            {
-                "name": "IT"
-            },
-            {
-                "name": "Support"
-            }
-        ],
+        "data": "SELECT TOP (10) [department_id],[department_name],[location_id] FROM [SamEmpDB].[dbo].[departments]",
         "port": 5555,
-        "nodePid": 6424,
-        "nodePpid": 12048
+        "cmd": "node  C://working//allapigoeshere//a1b2c3//a1b2c35555.js",
+        "pid": 7636,
+        "ppid": 10800
+    },
+    {
+        "id": "a1b2c3",
+        "methodName": "getallocation",
+        "methodParams": [],
+        "httpMethod": "get",
+        "data": "SELECT TOP (10) [location_id], [street_address],[postal_code],[city],[state_province],[country_id] FROM [SamEmpDB].[dbo].[locations]",
+        "port": 5555,
+        "cmd": "node  C://working//allapigoeshere//a1b2c3//a1b2c35555.js",
+        "pid": 13960,
+        "ppid": 1352
     }
 ]

@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import fs from "fs";
 import _ from "lodash";
 import { nc } from "../commands/index";
@@ -17,30 +18,47 @@ export class CodeGenerator {
         const bodyParser = require('body-parser');
         const cors = require('cors');
         const express = require('express');
+        const sql = require('mssql');
 
         const app = express();
         app.use(bodyParser.json());
-        app.use(cors());`;
+        app.use(cors());
+
+        const config = {
+        user: "Rajeev",
+        password: "Oak1nd1a01",
+        server: "192.168.1.50",
+        database: "SamEmpDB",
+        options: {
+            encrypt: false,
+        },
+        };
+
+        const pool = new sql.ConnectionPool(config);`;
     }
 
-    generateAPI = () => {
+    generateAPI = async () => {
         try {
             const arrOfUserInfo: IUserInfo[] = this.getDataFromJosnStorage("app\\database\\userinfodb.json");
             // _.isEqual([], []);
             let userInfoAvilable: IUserInfo | undefined = arrOfUserInfo.find((x) => x.id === this.opts.id &&
                 x.port === this.opts.port && x.methodName === this.opts.methodName
                 && _.isEqual(x.methodParams, this.opts.methodParams) && x.httpMethod === this.opts.httpMethod);
+
             if (!userInfoAvilable) {
                 userInfoAvilable = {
                     id: this.opts.id, methodName: this.opts.methodName,
                     methodParams: this.opts.methodParams, httpMethod: this.opts.httpMethod,
-                    data: this.opts.data, port: this.opts.port,
+                    data: this.opts.data, port: this.opts.port, cmd: "", pid: 0, ppid: 0,
                 };
                 arrOfUserInfo.push(userInfoAvilable);
             }
-            nc.killProcessByID(userInfoAvilable.nodePid);
-            nc.killProcessByID(userInfoAvilable.nodePpid);
-            console.log(arrOfUserInfo);
+
+            await arrOfUserInfo.filter((x) => x.cmd!.trim().toLowerCase() === `node  ${this.filePath.toLowerCase()}`)
+                .forEach(async (x) => {
+                    await nc.killTaskByPid(x.pid);
+                });
+            console.log(chalk.bgRedBright(`after killing.......`));
             const fileStream = fs.createWriteStream(this.filePath);
             fileStream.once("open", (fd) => {
                 fileStream.write(`${this.commonimport}\n`);
@@ -52,14 +70,16 @@ export class CodeGenerator {
             });
 
             fileStream.once("close", async () => {
+                // console.log(await nc.getAllNodeProcess());
                 nc.startService(this.filePath);
                 const nodeProcess = await nc.getAllNodeProcess();
-                const foundYou = nodeProcess.filter((n) => n.cmd.trim().toLowerCase()
+                const foundYou = nodeProcess.filter((n) => n.cmd!.trim().toLowerCase()
                     === `node  ${this.filePath.toLowerCase()}`);
-                userInfoAvilable!.nodePid = foundYou[0].pid;
-                userInfoAvilable!.nodePpid = foundYou[0].ppid;
-                console.log(nodeProcess);
-                console.log(foundYou);
+                // console.log(nodeProcess);
+                // console.log(foundYou);
+                userInfoAvilable!.pid = foundYou[0]!.pid;
+                userInfoAvilable!.ppid = foundYou[0]!.ppid;
+                userInfoAvilable!.cmd = foundYou[0]!.cmd;
                 this.SetDataToJosnStorage("app\\database\\userinfodb.json", arrOfUserInfo);
             });
         } catch (error) {
@@ -85,8 +105,18 @@ export class CodeGenerator {
                 `/:${x.methodParams.join("/:")}`;
             switch (x.httpMethod.toLocaleLowerCase()) {
                 case "get":
-                    result += `app.get("/${x.methodName}${params}", (req, res) => {
-                    res.send(${ JSON.stringify(x.data)});});\n`;
+                    result += `
+                        app.get("/${x.methodName}${params}", async (req, res) => {
+                        try {
+                            const conn = await pool.connect();
+                            const request = new sql.Request(conn);
+                            const result = await request.query("${x.data}");
+                            await conn.close();
+                            res.status(200).send(result.recordset);
+                            } catch (error) {
+                                console.error(error);
+                                res.status(400).send(error);
+                            }});`;
                     break;
                 default:
                     break;

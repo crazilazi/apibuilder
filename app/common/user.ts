@@ -7,14 +7,12 @@ interface IUserInput {
     port: number;
 }
 
-interface IUserInfo extends IUserInput {
-    nodePid?: number;
-    nodePpid?: number;
+interface IUserInfo extends IUserInput, IProcessInfo {
 }
 
 interface IProcessInfo {
-    pid: number;
+    pid?: number;
     ppid?: number;
-    name: string;
-    cmd: string;
+    name?: string;
+    cmd?: string;
 }
