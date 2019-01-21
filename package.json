@@ -28,11 +28,18 @@
   },
   "dependencies": {
     "@types/find-process": "^1.1.0",
+    "@types/jsontoxml": "^1.0.0",
     "@types/lodash": "^4.14.120",
+    "@types/xml": "^1.0.2",
+    "@types/xml-js": "^1.0.0",
     "bluebird": "^3.5.3",
     "find-process": "^1.2.1",
+    "jsontoxml": "^1.0.1",
     "lodash": "^4.17.11",
     "mssql": "^4.3.0",
-    "node-cmd": "^3.0.0"
+    "node-cmd": "^3.0.0",
+    "terminate": "^2.1.2",
+    "xml": "^1.0.1",
+    "xml-js": "^1.6.9"
   }
 }
