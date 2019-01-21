@@ -1,0 +1,104 @@
+[
+    {
+        "id": "a1b2c3",
+        "methodName": "getAllEmployee",
+        "methodParams": [
+            "id"
+        ],
+        "httpMethod": "get",
+        "data": [
+            {
+                "name": "Rajeev"
+            },
+            {
+                "name": "Sachin"
+            },
+            {
+                "name": "Nandish"
+            }
+        ],
+        "port": 5555,
+        "nodePid": 12388,
+        "nodePpid": 11400
+    },
+    {
+        "id": "a1b2c3",
+        "methodName": "getAllDept",
+        "methodParams": [
+            "id"
+        ],
+        "httpMethod": "get",
+        "data": [
+            {
+                "name": "Dev"
+            },
+            {
+                "name": "IT"
+            },
+            {
+                "name": "Support"
+            }
+        ],
+        "port": 5555,
+        "nodePid": 6424,
+        "nodePpid": 12048
+    },
+    {
+        "id": "a1b2c3",
+        "methodName": "getAllDept",
+        "methodParams": [],
+        "httpMethod": "get",
+        "data": [
+            {
+                "name": "Dev"
+            },
+            {
+                "name": "IT"
+            },
+            {
+                "name": "Support"
+            },
+            {
+                "name": "Dev"
+            },
+            {
+                "name": "IT"
+            },
+            {
+                "name": "Support"
+            }
+        ],
+        "port": 5555,
+        "nodePid": 6424,
+        "nodePpid": 12048
+    },
+    {
+        "id": "a1b2c3",
+        "methodName": "getAlld",
+        "methodParams": [],
+        "httpMethod": "get",
+        "data": [
+            {
+                "name": "Dev"
+            },
+            {
+                "name": "IT"
+            },
+            {
+                "name": "Support"
+            },
+            {
+                "name": "Dev"
+            },
+            {
+                "name": "IT"
+            },
+            {
+                "name": "Support"
+            }
+        ],
+        "port": 5555,
+        "nodePid": 6424,
+        "nodePpid": 12048
+    }
+]
