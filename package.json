@@ -32,14 +32,17 @@
     "@types/lodash": "^4.14.120",
     "@types/xml": "^1.0.2",
     "@types/xml-js": "^1.0.0",
+    "@types/xml2js": "^0.4.3",
     "bluebird": "^3.5.3",
     "find-process": "^1.2.1",
     "jsontoxml": "^1.0.1",
     "lodash": "^4.17.11",
     "mssql": "^4.3.0",
     "node-cmd": "^3.0.0",
+    "node-command-line": "^1.0.2",
     "terminate": "^2.1.2",
     "xml": "^1.0.1",
-    "xml-js": "^1.6.9"
+    "xml-js": "^1.6.9",
+    "xml2js": "^0.4.19"
   }
 }
