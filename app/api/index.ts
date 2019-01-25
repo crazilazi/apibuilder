@@ -6,6 +6,7 @@ import jsonxml from "jsontoxml";
 import sql from "mssql";
 import xml from "xml";
 import converter, { Options } from "xml-js";
+import { nc } from "../commands/index";
 import { CodeGenerator } from "../utility/codegenerator";
 
 const app = express();
@@ -42,6 +43,18 @@ app.post("/createapi", async (req, res) => {
     }
 });
 
+app.post("/createsoapservice", async (req, res) => {
+    // your logic here
+    try {
+        // nc.startService("C:\\working\\apibuilder\\app\\soapservices\\soaptest.js");
+        nc.runSingleCommandWithWait("C:\\working\\apibuilder\\app\\soapservices\\soaptest.js");
+        res.status(200).send("http://127.0.0.1:1337/soapService?wsdl");
+    } catch (error) {
+        console.log(chalk.bgRed("errorrrrrrrrr"));
+        console.log(chalk.bgRed(error));
+        res.status(400).send(error);
+    }
+});
 // get json data using sql
 app.get("/getEmpDataAsJson", async (req, res) => {
     // your logic here

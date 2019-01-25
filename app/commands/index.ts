@@ -2,6 +2,11 @@ import find from "find-process";
 import cmd from "node-cmd";
 // tslint:disable-next-line:no-var-requires
 const terminate = require("terminate");
+// import Promise from "bluebird";
+// tslint:disable-next-line:no-var-requires
+const cmdl = require("node-command-line");
+// tslint:disable-next-line:no-var-requires
+const Promise1 = require("bluebird");
 
 class NodeCommand {
     static startService(wheretostart: string) {
@@ -56,6 +61,24 @@ class NodeCommand {
             console.log(error);
             throw error;
         }
+    }
+
+    static runSingleCommandWithWait = async (whotorun: string) => {
+        await Promise1.coroutine(function* () {
+            const response = yield cmdl.run(`node ${whotorun}`);
+            if (response.success) {
+                // do something
+                // if success get stdout info in message. like response.message
+                console.log(response.success);
+            } else {
+                // do something
+                // if not success get error message and stdErr info as error and stdErr.
+                // like response.error and response.stdErr
+                console.log(response.error);
+                console.log(response.stdErr);
+            }
+            console.log("Executed your command :)");
+        })();
     }
 }
 
