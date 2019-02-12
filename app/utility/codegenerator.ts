@@ -39,7 +39,7 @@ export class CodeGenerator {
 
     generateAPI = async () => {
         try {
-            const arrOfUserInfo: IUserInfo[] = this.getDataFromJosnStorage("app\\database\\userinfodb.json");
+            const arrOfUserInfo: IUserInfo[] = this.getDataFromJsonStorage("app\\database\\userinfodb.json");
             // _.isEqual([], []);
             let userInfoAvilable: IUserInfo | undefined = arrOfUserInfo.find((x) => x.id === this.opts.id &&
                 x.port === this.opts.port && x.methodName === this.opts.methodName
@@ -80,7 +80,7 @@ export class CodeGenerator {
                 userInfoAvilable!.pid = foundYou[0]!.pid;
                 userInfoAvilable!.ppid = foundYou[0]!.ppid;
                 userInfoAvilable!.cmd = foundYou[0]!.cmd;
-                this.SetDataToJosnStorage("app\\database\\userinfodb.json", arrOfUserInfo);
+                this.SetDataToJsonStorage("app\\database\\userinfodb.json", arrOfUserInfo);
             });
         } catch (error) {
             console.error(error);
@@ -125,7 +125,7 @@ export class CodeGenerator {
         return result;
     }
 
-    private getDataFromJosnStorage = (path: string): IUserInfo[] => {
+    private getDataFromJsonStorage = (path: string): IUserInfo[] => {
         let data: IUserInfo[] = [];
         const objContent = fs.readFileSync(path, "utf8");
         try {
@@ -137,7 +137,7 @@ export class CodeGenerator {
         return data;
     }
 
-    private SetDataToJosnStorage = (path: string, userinfo: IUserInfo[]): void => {
+    private SetDataToJsonStorage = (path: string, userinfo: IUserInfo[]): void => {
         // your logic
         fs.writeFileSync(path, JSON.stringify(userinfo), "utf8");
     }
